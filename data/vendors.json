@@ -1,0 +1,222 @@
+[
+  {
+    "id": "1",
+    "name": "Studio Lumiere",
+    "location": "Warsaw",
+    "category": "wedding",
+    "styles": ["cinematic", "luxury"],
+    "priceRange": "high",
+    "instagram": "https://instagram.com/",
+    "video": "https://www.youtube.com/embed/dQw4w9WgXcQ",
+    "claimed": false
+  },
+  {
+    "id": "2",
+    "name": "Raw Moments",
+    "location": "Warsaw",
+    "category": "wedding",
+    "styles": ["documentary", "natural"],
+    "priceRange": "mid",
+    "instagram": "https://instagram.com/",
+    "video": "https://player.vimeo.com/video/76979871",
+    "claimed": false
+  },
+  {
+    "id": "3",
+    "name": "Golden Frame",
+    "location": "Krakow",
+    "category": "wedding",
+    "styles": ["cinematic", "romantic"],
+    "priceRange": "high",
+    "instagram": "https://instagram.com/",
+    "video": "https://www.youtube.com/embed/ysz5S6PUM-U",
+    "claimed": false
+  },
+  {
+    "id": "4",
+    "name": "True Story Films",
+    "location": "Gdansk",
+    "category": "wedding",
+    "styles": ["documentary", "storytelling"],
+    "priceRange": "mid",
+    "instagram": "https://instagram.com/",
+    "video": "https://player.vimeo.com/video/22439234",
+    "claimed": false
+  },
+  {
+    "id": "5",
+    "name": "Ever After Studio",
+    "location": "Warsaw",
+    "category": "wedding",
+    "styles": ["luxury", "editorial"],
+    "priceRange": "high",
+    "instagram": "https://instagram.com/",
+    "video": "https://www.youtube.com/embed/jNQXAC9IVRw",
+    "claimed": false
+  },
+  {
+    "id": "6",
+    "name": "Wild Vows",
+    "location": "Wroclaw",
+    "category": "wedding",
+    "styles": ["natural", "boho"],
+    "priceRange": "mid",
+    "instagram": "https://instagram.com/",
+    "video": "https://player.vimeo.com/video/146022717",
+    "claimed": false
+  },
+  {
+    "id": "7",
+    "name": "Frame & Light",
+    "location": "Poznan",
+    "category": "wedding",
+    "styles": ["cinematic", "minimal"],
+    "priceRange": "mid",
+    "instagram": "https://instagram.com/",
+    "video": "https://www.youtube.com/embed/tgbNymZ7vqY",
+    "claimed": false
+  },
+  {
+    "id": "8",
+    "name": "Soft Lens Collective",
+    "location": "Warsaw",
+    "category": "wedding",
+    "styles": ["editorial", "fashion"],
+    "priceRange": "high",
+    "instagram": "https://instagram.com/",
+    "video": "https://player.vimeo.com/video/1084537",
+    "claimed": false
+  },
+  {
+    "id": "9",
+    "name": "Moments Studio",
+    "location": "Lodz",
+    "category": "wedding",
+    "styles": ["classic", "romantic"],
+    "priceRange": "low",
+    "instagram": "https://instagram.com/",
+    "video": "https://www.youtube.com/embed/aqz-KE-bpKQ",
+    "claimed": false
+  },
+  {
+    "id": "10",
+    "name": "True Emotion Films",
+    "location": "Katowice",
+    "category": "wedding",
+    "styles": ["emotional", "storytelling"],
+    "priceRange": "mid",
+    "instagram": "https://instagram.com/",
+    "video": "https://player.vimeo.com/video/357274789",
+    "claimed": false
+  },
+  {
+    "id": "11",
+    "name": "Velvet Moments",
+    "location": "Warsaw",
+    "category": "wedding",
+    "styles": ["luxury", "romantic"],
+    "priceRange": "high",
+    "instagram": "https://instagram.com/",
+    "video": "https://www.youtube.com/embed/ScMzIvxBSi4",
+    "claimed": false
+  },
+  {
+    "id": "12",
+    "name": "Honest Frames",
+    "location": "Krakow",
+    "category": "wedding",
+    "styles": ["documentary", "authentic"],
+    "priceRange": "mid",
+    "instagram": "https://instagram.com/",
+    "video": "https://player.vimeo.com/video/395212534",
+    "claimed": false
+  },
+  {
+    "id": "13",
+    "name": "White Story Studio",
+    "location": "Gdansk",
+    "category": "wedding",
+    "styles": ["minimal", "editorial"],
+    "priceRange": "high",
+    "instagram": "https://instagram.com/",
+    "video": "https://www.youtube.com/embed/kXYiU_JCYtU",
+    "claimed": false
+  },
+  {
+    "id": "14",
+    "name": "Dreamcatcher Films",
+    "location": "Wroclaw",
+    "category": "wedding",
+    "styles": ["cinematic", "emotional"],
+    "priceRange": "mid",
+    "instagram": "https://instagram.com/",
+    "video": "https://player.vimeo.com/video/90509568",
+    "claimed": false
+  },
+  {
+    "id": "15",
+    "name": "Golden Vows",
+    "location": "Poznan",
+    "category": "wedding",
+    "styles": ["classic", "luxury"],
+    "priceRange": "high",
+    "instagram": "https://instagram.com/",
+    "video": "https://www.youtube.com/embed/3fumBcKC6RE",
+    "claimed": false
+  },
+  {
+    "id": "16",
+    "name": "Natural Frames",
+    "location": "Lublin",
+    "category": "wedding",
+    "styles": ["natural", "boho"],
+    "priceRange": "low",
+    "instagram": "https://instagram.com/",
+    "video": "https://player.vimeo.com/video/143418951",
+    "claimed": false
+  },
+  {
+    "id": "17",
+    "name": "Storyline Studio",
+    "location": "Warsaw",
+    "category": "wedding",
+    "styles": ["storytelling", "cinematic"],
+    "priceRange": "mid",
+    "instagram": "https://instagram.com/",
+    "video": "https://www.youtube.com/embed/9bZkp7q19f0",
+    "claimed": false
+  },
+  {
+    "id": "18",
+    "name": "Emotion Craft",
+    "location": "Katowice",
+    "category": "wedding",
+    "styles": ["emotional", "documentary"],
+    "priceRange": "mid",
+    "instagram": "https://instagram.com/",
+    "video": "https://player.vimeo.com/video/59065164",
+    "claimed": false
+  },
+  {
+    "id": "19",
+    "name": "Pure Moments",
+    "location": "Krakow",
+    "category": "wedding",
+    "styles": ["minimal", "natural"],
+    "priceRange": "low",
+    "instagram": "https://instagram.com/",
+    "video": "https://www.youtube.com/embed/l482T0yNkeo",
+    "claimed": false
+  },
+  {
+    "id": "20",
+    "name": "Luxury Vows Studio",
+    "location": "Warsaw",
+    "category": "wedding",
+    "styles": ["luxury", "editorial"],
+    "priceRange": "high",
+    "instagram": "https://instagram.com/",
+    "video": "https://player.vimeo.com/video/1084537",
+    "claimed": false
+  }
+]
