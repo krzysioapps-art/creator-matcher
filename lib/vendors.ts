@@ -1,15 +1,54 @@
-import vendorsData from "@/data/vendors.json"
-import { Vendor } from "./types"
+import { supabase } from "./supabase"
 
-export function getVendors(): Vendor[] {
-  return vendorsData as Vendor[]
+export async function getVendors() {
+  const { data, error } = await supabase
+    .from("vendors")
+    .select("*")
+    .order("created_at", { ascending: false })
+
+  if (error) throw error
+
+  return data
 }
 
-export function getVendorById(id: string) {
-  const vendors = getVendors()
+export async function getVendorBySlug(slug: string) {
+  const { data, error } = await supabase
+    .from("vendors")
+    .select("*")
+    .eq("slug", slug)
+    .single()
 
-  console.log("SZUKAM ID:", id)
-  console.log("VENDORS:", vendors)
+  if (error) return null
 
-  return vendors.find((v) => v.id === id)
+  return data
+}
+
+export async function getVendorByLegacyId(id: string) {
+  const { data, error } = await supabase
+    .from("vendors")
+    .select("*")
+    .eq("legacy_id", id)
+    .single()
+
+  if (error) return null
+
+  return data
+}
+
+export async function getVendorById(id: string) {
+  const { data, error } = await supabase
+    .from("vendors")
+    .select("*")
+    .eq("legacy_id", id)
+    .single()
+
+  if (error) return null
+
+  return {
+    ...data,
+    coverImage: data.cover_image,
+    videoTitle: data.video_title,
+    priceRange: data.price_range,
+    leadCapture: data.lead_capture,
+  }
 }

@@ -43,20 +43,6 @@ body {
 }
 
 /* =========================
-   DARK MODE
-========================= */
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-
-    --color-secondary: #1a1a1a;
-    --color-border: #2a2a2a;
-    --color-muted: #9ca3af;
-  }
-}
-
-/* =========================
    BASE
 ========================= */
 @layer base {
@@ -64,6 +50,20 @@ body {
     background: var(--background);
     color: var(--foreground);
     font-family: var(--font-sans), system-ui, sans-serif;
+  }
+
+  button,
+  a,
+  [role="button"],
+  summary,
+  label[for] {
+    cursor: pointer;
+  }
+
+  button:disabled,
+  button[disabled],
+  input:disabled {
+    cursor: not-allowed;
   }
 }
 
@@ -80,8 +80,6 @@ input,
 select,
 a {
   touch-action: manipulation;
-  -webkit-user-select: none;
-  user-select: none;
 }
 
 input {
@@ -424,12 +422,6 @@ input {
     color: white;
   }
 
-  @media (prefers-color-scheme: dark) {
-    .card {
-      background: rgba(26, 26, 26, 0.9);
-    }
-  }
-
   /* TAG */
   .tag {
     background: var(--color-secondary);
@@ -674,16 +666,6 @@ input {
     display: flex;
     align-items: center;
     gap: 0.75rem;
-  }
-
-  @media (prefers-color-scheme: dark) {
-    .header-logo {
-      color: #ededed;
-    }
-
-    .header-logo:hover {
-      color: #d1d5db;
-    }
   }
 
   /* FOOTER */

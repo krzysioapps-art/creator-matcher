@@ -1,0 +1,48 @@
+ {/* LEAD CAPTURE */}
+                {vendor.leadCapture?.enabled && !leadCaptured && (
+                    <section className="bg-gradient-to-br from-purple-50 to-indigo-50 border border-purple-100 rounded-2xl p-6 md:p-8">
+                        <div className="flex items-start gap-4">
+                            <div className="text-3xl flex-shrink-0">
+                                {rewardIcons[vendor.leadCapture.rewardType] || <Gift size={24} className="text-purple-600" />}
+                            </div>
+                            <div className="flex-1">
+                                <h2 className="font-bold text-gray-900 text-lg mb-1">
+                                    {vendor.leadCapture.title}
+                                </h2>
+                                <p className="text-sm text-gray-600 mb-4">
+                                    {vendor.leadCapture.description}
+                                </p>
+                                {!leadSubmitted ? (
+                                    <div className="flex gap-3 flex-col sm:flex-row">
+                                        <input
+                                            type="email"
+                                            placeholder="Twój email"
+                                            value={leadEmail}
+                                            onChange={(e) => setLeadEmail(e.target.value)}
+                                            className="flex-1 px-4 py-2.5 rounded-xl border border-purple-200 bg-white text-sm outline-none focus:border-purple-500 focus:ring-2 focus:ring-purple-500/20 transition-all"
+                                        />
+                                        <button
+                                            disabled={!leadEmail.includes("@")}
+                                            onClick={() => {
+                                                console.log("LEAD CAPTURE:", { leadEmail, vendor: vendor.name })
+                                                setLeadSubmitted(true)
+                                                setLeadCaptured(true)
+                                                if (vendor.leadCapture?.rewardUrl) {
+                                                    setTimeout(() => window.open(vendor.leadCapture!.rewardUrl, "_blank"), 400)
+                                                }
+                                            }}
+                                            className="bg-purple-600 text-white px-5 py-2.5 rounded-xl font-semibold text-sm hover:bg-purple-700 transition-colors disabled:opacity-40 disabled:cursor-not-allowed whitespace-nowrap"
+                                        >
+                                            Pobierz {vendor.leadCapture.rewardTitle}
+                                        </button>
+                                    </div>
+                                ) : (
+                                    <p className="text-purple-700 font-medium text-sm">
+                                        <Check size={14} className="text-purple-500 mt-0.5 shrink-0" /> Wysłano! Sprawdź swoją skrzynkę email.
+                                    </p>
+                                )}
+                                <p className="text-xs text-gray-400 mt-2">Bez spamu. Możesz się wypisać w każdej chwili.</p>
+                            </div>
+                        </div>
+                    </section>
+                )}
