@@ -4,121 +4,107 @@ import Link from "next/link"
 import { useRouter, usePathname } from "next/navigation"
 import { useEffect, useState } from "react"
 
-export default function Header({
-  sticky = true,
-}: {
-  sticky?: boolean
-}) {
+export default function Header({ sticky = true }: { sticky?: boolean }) {
   const router = useRouter()
   const pathname = usePathname()
-
   const [mounted, setMounted] = useState(false)
   const [hasProject, setHasProject] = useState(false)
   const [scrolled, setScrolled] = useState(false)
 
   useEffect(() => {
     setMounted(true)
-
-    const checkProject = () => {
-      setHasProject(!!localStorage.getItem("project"))
-    }
-
+    const checkProject = () => setHasProject(!!localStorage.getItem("project"))
     checkProject()
-
     window.addEventListener("projectUpdated", checkProject)
-
-    return () => {
-      window.removeEventListener("projectUpdated", checkProject)
-    }
+    return () => window.removeEventListener("projectUpdated", checkProject)
   }, [pathname])
 
   useEffect(() => {
-    const handleScroll = () => {
-      if (sticky) {
-        setScrolled(window.scrollY > 10)
-      } else {
-        setScrolled(false)
-      }
-    }
-
+    const handleScroll = () => { if (sticky) setScrolled(window.scrollY > 10); else setScrolled(false) }
     handleScroll()
-
-    if (sticky) {
-      window.addEventListener("scroll", handleScroll)
-    }
-
-    return () => {
-      window.removeEventListener("scroll", handleScroll)
-    }
+    if (sticky) window.addEventListener("scroll", handleScroll)
+    return () => window.removeEventListener("scroll", handleScroll)
   }, [sticky])
-
-  const handleEdit = () => {
-    router.push("/create-project?edit=true")
-  }
 
   return (
     <header
-      className={`w-full z-50 transition-all duration-300 ${sticky
-        ? `fixed top-0 ${scrolled ? "shadow-[0_1px_20px_rgba(0,0,0,0.04)]" : ""
-        }`
-        : "relative"
-        }`}
+      className={`w-full z-50 transition-all duration-300 ${sticky ? "fixed top-0" : "relative"}`}
       style={{
-        backgroundColor: "rgba(255,255,255,0.8)",
-        backdropFilter: "blur(12px)",
-        WebkitBackdropFilter: "blur(12px)",
+        background: scrolled ? "rgba(237,232,255,0.8)" : "rgba(240,236,255,0.6)",
+        backdropFilter: "blur(20px)",
+        WebkitBackdropFilter: "blur(20px)",
+        borderBottom: "1px solid rgba(255,255,255,0.85)",
+        boxShadow: scrolled ? "0 4px 24px rgba(100,70,200,0.1), inset 0 -1px 0 rgba(255,255,255,0.6)" : "none",
+        transition: "all 0.3s ease",
       }}
     >
-      <div className="container-main h-16 flex items-center justify-between">
+      <div style={{
+        maxWidth: "72rem", margin: "0 auto", padding: "0 1.25rem",
+        height: "4.5rem", display: "flex", alignItems: "center", justifyContent: "space-between",
+      }}>
 
         {/* LOGO */}
-        <Link href="/" className="flex items-center select-none group">
-          <svg
-            width="30"
-            height="30"
-            viewBox="0 0 160 160"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-            className="shrink-0 mr-2"
-          >
-            <defs>
-              <linearGradient id="grapeGrad" x1="0" y1="0" x2="1" y2="1">
-                <stop offset="0%" stopColor="#8B5CF6" />
-                <stop offset="100%" stopColor="#6D28D9" />
-              </linearGradient>
+        <Link href="/" style={{ display: "flex", alignItems: "center", gap: 10, textDecoration: "none", userSelect: "none" }}>
+          <div style={{
+            width: 34, height: 34, borderRadius: 10,
+            background: "rgba(255,255,255,0.7)",
+            backdropFilter: "blur(8px)",
+            border: "1px solid rgba(255,255,255,0.9)",
+            display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0,
+            boxShadow: "0 2px 12px rgba(124,58,237,0.15), inset 0 1px 0 rgba(255,255,255,1)",
+          }}>
+            <svg width="20" height="20" viewBox="0 0 160 160" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <defs>
+                <linearGradient id="g1" x1="0" y1="0" x2="1" y2="1">
+                  <stop offset="0%" stopColor="#a78bfa" />
+                  <stop offset="100%" stopColor="#7c3aed" />
+                </linearGradient>
+                <linearGradient id="g2" x1="0" y1="0" x2="1" y2="1">
+                  <stop offset="0%" stopColor="#e879f9" />
+                  <stop offset="100%" stopColor="#c026d3" />
+                </linearGradient>
+              </defs>
+              <circle cx="30" cy="30" r="22" fill="url(#g1)" />
+              <circle cx="80" cy="30" r="22" fill="url(#g1)" />
+              <circle cx="130" cy="30" r="22" fill="url(#g2)" />
+              <circle cx="55" cy="80" r="22" fill="url(#g1)" />
+              <circle cx="105" cy="80" r="22" fill="url(#g1)" />
+              <circle cx="80" cy="130" r="22" fill="url(#g1)" />
+            </svg>
+          </div>
 
-              <linearGradient id="pinkGrad" x1="0" y1="0" x2="1" y2="1">
-                <stop offset="0%" stopColor="#EC4899" />
-                <stop offset="100%" stopColor="#F472B6" />
-              </linearGradient>
-            </defs>
-
-            <circle cx="30" cy="30" r="22" fill="url(#grapeGrad)" />
-            <circle cx="80" cy="30" r="22" fill="url(#grapeGrad)" />
-            <circle cx="130" cy="30" r="22" fill="url(#pinkGrad)" />
-
-            <circle cx="55" cy="80" r="22" fill="url(#grapeGrad)" />
-            <circle cx="105" cy="80" r="22" fill="url(#grapeGrad)" />
-
-            <circle cx="80" cy="130" r="22" fill="url(#grapeGrad)" />
-          </svg>
-
-          <span className="font-semibold text-lg tracking-tight text-gray-900 group-hover:text-gray-700 transition-colors mr-2">
-            Grapematcher
+          <span style={{ fontWeight: 700, fontSize: "1rem", letterSpacing: "-0.03em" }}>
+            <span style={{ color: "#7c3aed" }}>Grape</span>
+            <span style={{ color: "#1a1535" }}>matcher</span>
           </span>
 
-          <span className="text-[10px] font-semibold bg-purple-100 text-purple-700 px-2 py-1 rounded-full leading-none">
+          <span style={{
+            fontSize: "0.52rem", fontWeight: 700, color: "#9b72e0",
+            padding: "2px 6px", borderRadius: 999,
+            background: "rgba(124,58,237,0.06)",
+            border: "1px solid rgba(124,58,237,0.15)",
+            letterSpacing: "0.07em",
+          }}>
             BETA
           </span>
         </Link>
 
-        {/* CTA */}
-        <div className="flex items-center gap-3">
-
+        {/* NAV */}
+        <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
           {mounted && hasProject && (
             <button
-              onClick={handleEdit}
-              className="text-sm font-medium text-gray-600 hover:text-gray-900 transition-colors px-4 py-2 cursor-pointer active:scale-95"
+              onClick={() => router.push("/create-project?edit=true")}
+              style={{
+                background: "rgba(255,255,255,0.65)",
+                backdropFilter: "blur(8px)", WebkitBackdropFilter: "blur(8px)",
+                color: "#6b5fa0", border: "1px solid rgba(255,255,255,0.85)",
+                fontSize: "0.85rem", fontWeight: 500,
+                padding: "0.45rem 1.1rem", borderRadius: 999,
+                cursor: "pointer", transition: "all 0.2s ease",
+                boxShadow: "0 2px 8px rgba(100,70,200,0.08)",
+              }}
+              onMouseEnter={e => { e.currentTarget.style.background = "rgba(255,255,255,0.85)"; e.currentTarget.style.color = "#1a1535" }}
+              onMouseLeave={e => { e.currentTarget.style.background = "rgba(255,255,255,0.65)"; e.currentTarget.style.color = "#6b5fa0" }}
             >
               Edytuj
             </button>
@@ -126,11 +112,18 @@ export default function Header({
 
           <Link
             href={mounted && hasProject ? "/results" : "/create-project"}
-            className="bg-purple-600 text-white text-sm font-medium px-5 py-2 rounded-full hover:bg-purple-700 transition-colors whitespace-nowrap"
+            style={{
+              background: "linear-gradient(135deg, #7c3aed, #6d28d9)",
+              color: "#fff", fontSize: "0.85rem", fontWeight: 700,
+              padding: "0.48rem 1.3rem", borderRadius: 999,
+              border: "1px solid rgba(124,58,237,0.3)",
+              boxShadow: "0 4px 16px rgba(124,58,237,0.35), inset 0 1px 0 rgba(255,255,255,0.2)",
+              textDecoration: "none", display: "inline-block",
+              whiteSpace: "nowrap", transition: "all 0.2s ease",
+            }}
           >
             {mounted && hasProject ? "Wyniki" : "Start"}
           </Link>
-
         </div>
       </div>
     </header>

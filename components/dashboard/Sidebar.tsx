@@ -3,59 +3,48 @@
 
 import Link from "next/link"
 import { usePathname } from "next/navigation"
+import { LayoutDashboard, Users, FileText, Settings, BarChart2 } from "lucide-react"
+
+const C = { fg: "#1a1535", muted: "#6b5fa0", dim: "#9b8ec4", accent: "#7c3aed" }
+
+const NAV = [
+  { href: "/dashboard", label: "Przegląd", icon: LayoutDashboard },
+  { href: "/dashboard/leads", label: "Leady", icon: Users },
+  { href: "/dashboard/analytics", label: "Statystyki", icon: BarChart2 },
+  { href: "/dashboard/profile", label: "Profil", icon: FileText },
+  { href: "/dashboard/settings", label: "Ustawienia", icon: Settings },
+]
 
 export default function DashboardSidebar() {
   const pathname = usePathname()
 
-  const isActive = (path: string) => pathname === path
-
-  const navItems = [
-    { href: "/dashboard", label: "Przegląd", icon: "📊" },
-    { href: "/dashboard/profile", label: "Profil", icon: "👤" },
-    { href: "/dashboard/leads", label: "Leady", icon: "📧" },
-    { href: "/dashboard/analytics", label: "Statystyki", icon: "📈" },
-    { href: "/dashboard/settings", label: "Ustawienia", icon: "⚙️" },
-  ]
-
   return (
-    <aside className="w-64 bg-white border-r border-gray-200 hidden md:flex flex-col overflow-hidden">
-      
-      {/* Navigation - scrollable if needed */}
-      <nav className="flex-1 p-6 space-y-2 overflow-y-auto">
-        {navItems.map((item) => (
-          <Link
-            key={item.href}
-            href={item.href}
-            className={`flex items-center gap-3 px-4 py-3 rounded-xl font-medium transition-all ${
-              isActive(item.href)
-                ? "bg-purple-600 text-white"
-                : "text-gray-700 hover:bg-gray-100"
-            }`}
-          >
-            <span className="text-xl">{item.icon}</span>
-            <span>{item.label}</span>
+    <aside style={{
+      width: 220, flexShrink: 0,
+      background: "rgba(255,255,255,0.45)",
+      backdropFilter: "blur(20px)", WebkitBackdropFilter: "blur(20px)",
+      borderRight: "1px solid rgba(255,255,255,0.85)",
+      padding: "1.5rem 1rem",
+      display: "flex", flexDirection: "column", gap: "0.25rem",
+      overflowY: "auto",
+    }}>
+      {NAV.map(({ href, label, icon: Icon }) => {
+        const active = pathname === href || (href !== "/dashboard" && pathname.startsWith(href))
+        return (
+          <Link key={href} href={href} style={{
+            display: "flex", alignItems: "center", gap: "0.65rem",
+            padding: "0.6rem 0.85rem", borderRadius: 12, textDecoration: "none",
+            fontSize: "0.85rem", fontWeight: active ? 700 : 500,
+            color: active ? C.accent : C.muted,
+            background: active ? "rgba(124,58,237,0.1)" : "transparent",
+            border: active ? "1px solid rgba(124,58,237,0.15)" : "1px solid transparent",
+            transition: "all 0.15s ease",
+          }}>
+            <Icon size={16} style={{ flexShrink: 0 }} />
+            {label}
           </Link>
-        ))}
-      </nav>
-
-      {/* Bottom Section - always visible */}
-      <div className="p-6 border-t border-gray-100">
-        <div className="bg-purple-50 rounded-xl p-4 border border-purple-100">
-          <p className="text-sm font-semibold text-purple-900 mb-1">
-            Potrzebujesz pomocy?
-          </p>
-          <p className="text-xs text-purple-700 mb-3">
-            Skontaktuj się z supportem
-          </p>
-          <Link
-            href="/dashboard/help"
-            className="text-xs text-purple-600 font-medium hover:text-purple-700"
-          >
-            Pomoc →
-          </Link>
-        </div>
-      </div>
-
+        )
+      })}
     </aside>
   )
 }

@@ -1,55 +1,88 @@
-"use client"
+import { supabaseAdmin } from "@/lib/supabaseAdmin"
 
-export default function LeadsPage() {
-  const leads = [
-    {
-      id: 1,
-      name: "Jan Kowalski",
-      email: "jan@example.com",
-      category: "Ślub",
-      location: "Warszawa",
-      budget: "8-12k zł",
-      date: "2 godziny temu",
-      status: "new"
-    },
-    {
-      id: 2,
-      name: "Anna Nowak",
-      email: "anna@example.com",
-      category: "Event",
-      location: "Kraków",
-      budget: "3-6k zł",
-      date: "5 godzin temu",
-      status: "contacted"
-    },
-    {
-      id: 3,
-      name: "Piotr Wiśniewski",
-      email: "piotr@example.com",
-      category: "Reklama",
-      location: "Gdańsk",
-      budget: "6k+ zł",
-      date: "Wczoraj",
-      status: "converted"
-    }
-  ]
+const C = {
+  fg: "#1a1535",
+  muted: "#6b5fa0",
+  dim: "#9b8ec4",
+  accent: "#7c3aed",
+  accentBg: "rgba(124,58,237,0.08)",
+  accentBorder: "rgba(124,58,237,0.18)",
+}
+
+export default async function LeadsPage() {
+  const { data: leads, error } = await supabaseAdmin
+    .from("vendor_leads")
+    .select("*")
+    .order("created_at", { ascending: false })
+
+  if (error) {
+    return (
+      <div className="max-w-6xl mx-auto">
+        <div
+          style={{
+            background: "#fff",
+            borderRadius: 24,
+            padding: "2rem",
+            border: "1px solid rgba(230,225,255,0.8)",
+            boxShadow:
+              "0 2px 12px rgba(100,70,200,0.07), 0 1px 0 rgba(255,255,255,0.9)",
+            color: "#dc2626",
+          }}
+        >
+          Błąd ładowania leadów
+        </div>
+      </div>
+    )
+  }
 
   return (
     <div className="max-w-6xl mx-auto">
-      
-      <div className="mb-8">
-        <h1 className="text-3xl font-semibold mb-2 text-gray-900">
+      {/* HEADER */}
+      <div style={{ marginBottom: "2rem" }}>
+        <h1
+          style={{
+            fontSize: "1.7rem",
+            fontWeight: 800,
+            color: C.fg,
+            letterSpacing: "-0.03em",
+            marginBottom: "0.3rem",
+          }}
+        >
           Leady
         </h1>
-        <p className="text-base text-gray-600">
+
+        <p style={{ fontSize: "0.9rem", color: C.muted }}>
           Zapytania od potencjalnych klientów
         </p>
       </div>
 
-      <div className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
-        
-        {/* Table Header */}
-        <div className="grid grid-cols-6 gap-4 px-6 py-4 bg-gray-50 border-b border-gray-100 text-sm font-semibold text-gray-700">
+      {/* TABLE */}
+      <div
+        style={{
+          background: "#fff",
+          borderRadius: 24,
+          border: "1px solid rgba(230,225,255,0.8)",
+          overflow: "hidden",
+          boxShadow:
+            "0 2px 12px rgba(100,70,200,0.07), 0 1px 0 rgba(255,255,255,0.9)",
+        }}
+      >
+        {/* HEAD */}
+        <div
+          style={{
+            display: "grid",
+            gridTemplateColumns: "1.3fr 1.4fr 1fr 1fr 1fr 0.9fr",
+            gap: "1rem",
+            padding: "1rem 1.5rem",
+            background: "rgba(124,58,237,0.04)",
+            borderBottom: "1px solid rgba(230,225,255,0.8)",
+            fontSize: "0.75rem",
+            fontWeight: 700,
+            color: C.dim,
+            textTransform: "uppercase",
+            letterSpacing: "0.08em",
+          }}
+        >
           <div>Klient</div>
           <div>Email</div>
           <div>Kategoria</div>
@@ -58,50 +91,127 @@ export default function LeadsPage() {
           <div>Status</div>
         </div>
 
-        {/* Table Body */}
-        <div className="divide-y divide-gray-100">
-          {leads.map((lead) => (
-            <div key={lead.id} className="grid grid-cols-6 gap-4 px-6 py-4 hover:bg-gray-50 transition-colors">
-              
-              <div>
-                <p className="font-medium text-gray-900">{lead.name}</p>
-                <p className="text-xs text-gray-500">{lead.date}</p>
-              </div>
+        {/* ROWS */}
+        <div>
+          {leads?.map((lead, i) => {
+            const status =
+              lead.status === "new"
+                ? {
+                    label: "Nowy",
+                    bg: "rgba(124,58,237,0.08)",
+                    color: "#7c3aed",
+                  }
+                : lead.status === "contacted"
+                ? {
+                    label: "Skontaktowany",
+                    bg: "rgba(79,70,229,0.08)",
+                    color: "#4f46e5",
+                  }
+                : {
+                    label: "Zamknięty",
+                    bg: "rgba(16,185,129,0.08)",
+                    color: "#059669",
+                  }
 
-              <div className="text-sm text-gray-600">
-                {lead.email}
-              </div>
+            return (
+              <div
+                key={lead.id}
+                style={{
+                  display: "grid",
+                  gridTemplateColumns: "1.3fr 1.4fr 1fr 1fr 1fr 0.9fr",
+                  gap: "1rem",
+                  padding: "1rem 1.5rem",
+                  alignItems: "center",
+                  borderBottom:
+                    i < leads.length - 1
+                      ? "1px solid rgba(230,225,255,0.6)"
+                      : "none",
+                }}
+              >
+                {/* CLIENT */}
+                <div>
+                  <p
+                    style={{
+                      fontSize: "0.88rem",
+                      fontWeight: 700,
+                      color: C.fg,
+                      marginBottom: "0.2rem",
+                    }}
+                  >
+                    {lead.vendor_name || "Lead"}
+                  </p>
 
-              <div className="text-sm text-gray-600">
-                {lead.category}
-              </div>
+                  <p
+                    style={{
+                      fontSize: "0.72rem",
+                      color: C.dim,
+                    }}
+                  >
+                    {new Date(lead.created_at).toLocaleDateString("pl-PL")}
+                  </p>
+                </div>
 
-              <div className="text-sm text-gray-600">
-                {lead.location}
-              </div>
+                {/* EMAIL */}
+                <div
+                  style={{
+                    fontSize: "0.84rem",
+                    color: C.muted,
+                    wordBreak: "break-word",
+                  }}
+                >
+                  {lead.email}
+                </div>
 
-              <div className="text-sm text-gray-600">
-                {lead.budget}
-              </div>
+                {/* CATEGORY */}
+                <div style={{ fontSize: "0.84rem", color: C.muted }}>
+                  {lead.category || "—"}
+                </div>
 
-              <div>
-                <span className={`inline-block px-3 py-1 rounded-full text-xs font-medium ${
-                  lead.status === 'new' ? 'bg-[var(--color-secondary)] text-purple-700' :
-                  lead.status === 'contacted' ? 'bg-blue-100 text-blue-700' :
-                  'bg-green-100 text-green-700'
-                }`}>
-                  {lead.status === 'new' ? 'Nowy' :
-                   lead.status === 'contacted' ? 'Skontaktowany' :
-                   'Zamknięty'}
-                </span>
-              </div>
+                {/* LOCATION */}
+                <div style={{ fontSize: "0.84rem", color: C.muted }}>
+                  {lead.location || "—"}
+                </div>
 
+                {/* BUDGET */}
+                <div style={{ fontSize: "0.84rem", color: C.muted }}>
+                  {lead.budget || "—"}
+                </div>
+
+                {/* STATUS */}
+                <div>
+                  <span
+                    style={{
+                      display: "inline-block",
+                      padding: "0.35rem 0.75rem",
+                      borderRadius: 999,
+                      fontSize: "0.72rem",
+                      fontWeight: 700,
+                      background: status.bg,
+                      color: status.color,
+                      border: `1px solid ${status.color}20`,
+                    }}
+                  >
+                    {status.label}
+                  </span>
+                </div>
+              </div>
+            )
+          })}
+
+          {leads?.length === 0 && (
+            <div
+              style={{
+                padding: "2rem",
+                textAlign: "center",
+                color: C.muted,
+                fontSize: "0.9rem",
+              }}
+            >
+              Brak leadów
             </div>
-          ))}
+          )}
         </div>
-
       </div>
-
     </div>
   )
 }

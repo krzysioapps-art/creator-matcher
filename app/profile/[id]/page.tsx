@@ -8,10 +8,9 @@ export default async function Page({
   params: Promise<{ id: string }>
 }) {
   const { id } = await params
-
   const vendor = await getVendorById(id)
 
   if (!vendor) notFound()
 
-  return <VendorClient vendor={vendor} />
+  return <VendorClient key={vendor.id} vendor={vendor} />
 }
